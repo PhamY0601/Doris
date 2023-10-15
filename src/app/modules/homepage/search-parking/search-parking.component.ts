@@ -102,7 +102,7 @@ export class SearchParkingComponent implements OnInit, AfterViewInit{
   onSearch(filterValue: any) {
     filterValue = filterValue.trim().toLowerCase();
     this.dataSource.filterPredicate = (data:any, filter:any) => {
-      return data.location.toLowerCase().includes(filter);
+      return data.address.toLowerCase().includes(filter);
     };
     this.dataSource.filter = filterValue;
     this.geocoderControl.markGeocode(filterValue);
