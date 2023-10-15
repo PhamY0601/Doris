@@ -1,0 +1,99 @@
+<router-outlet></router-outlet>
+<app-header [title]="'Danh sách bãi xe'" style=";position: sticky;
+    top: 0;
+    z-index: 9;"></app-header>
+
+<div class="p-5" fxLayout="column" fxLayoutGap="30px">
+
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput [(ngModel)]="searchValue" (keyup)="onSearch(searchValue)" placeholder="Vị trí bạn muốn đến">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <div class="text-gray" fxLayout="row">
+      <button [ngClass]="display ?  'text-blue':'text-gray'"
+              mat-icon-button (click)="display=true">
+        <mat-icon>grid_on</mat-icon>
+      </button>
+      <button [ngClass]="display ?  'text-gray':'text-blue'"
+              mat-icon-button (click)="display=false">
+        <mat-icon>map</mat-icon>
+
+      </button>
+
+    </div>
+  </div>
+  <div [hidden]="!display">
+    <div class="mat-elevation-z2 bg-white" fxLayout="row wrap" fxLayoutGap="16px">
+      <div fxLayout="row wrap" fxFlex="100">
+        <div fxFlex="100" fxFlex.gt-md="50" fxFlex.sm="50" class="mt-16">
+        </div>
+      </div>
+
+      <div fxFlex="100" fxFlex.gt-xs="100">
+        <div class="pb-0">
+          <div class="table-custom mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource">
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="stt">
+                <th mat-header-cell *matHeaderCellDef> STT</th>
+                <td mat-cell
+                    *matCellDef="let element; let i = index;"> {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Địa điểm gửi xe</th>
+                <td mat-cell *matCellDef="let element"> {{element.placeName}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="location">
+                <th mat-header-cell *matHeaderCellDef>Vị trí</th>
+                <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="prices">
+                <th mat-header-cell *matHeaderCellDef>Giá</th>
+                <td mat-cell *matCellDef="let element"> {{element.placePrice}} vnd </td>
+              </ng-container>
+
+              <!-- Symbol Column -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef>Số chỗ còn trống </th>
+                <td mat-cell *matCellDef="let element"> {{element.numOfSpaceLeft}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>Hành động</th>
+                <td mat-cell *matCellDef="let row">
+                  <a style = "color: #0e76bc; text-align: center"  [routerLink]="['add']">Đặt chỗ đậu xe</a>
+                </td>
+              </ng-container>
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell text-center" colspan="10">
+                  Data empty
+                </td>
+              </tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="30">
+              <div>Số bản ghi của bảng là: {{dataSource.data.length}}</div>
+              <mat-paginator [hidePageSize]="true" [pageSizeOptions]="[9]"
+                             #paginatorRef></mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div [hidden]="display">
+    <div id="map" style = "width: 100%; height: 500px"></div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,18 @@
+<div class="bg-white full-height" fxLayout="column" fxLayoutAlign=" stretch">
+  <div class="py-5 px-3" fxLayout="row" fxLayoutAlign="space-between center" style="background-color: #0e76bc">
+    <div class="fz-7 fw-500 px-2" style="color: #ffffff" [routerLink]="['/wellcome']">S.PARKING</div>
+  </div>
+    <div class="pe-2">
+      <mat-nav-list>
+        <mat-list-item [routerLinkActive]="['is-active']" [routerLink]="['/homepage/search-parking']">
+            Danh sách bãi xe
+        </mat-list-item>
+        <mat-list-item [routerLinkActive]="['is-active']" [routerLink]="['/homepage/parking-registration']">
+            Đăng ký bãi xe
+        </mat-list-item>
+        <mat-list-item [routerLinkActive]="['is-active']" [routerLink]="['/homepage/management-parking']">
+            Quản lý bãi xe
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+</div>
